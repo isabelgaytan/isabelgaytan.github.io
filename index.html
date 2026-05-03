@@ -1,1 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Isabel Gaytan — Finance & Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #F7F3EC;
+      --ink: #1A1612;
+      --terracotta: #C4623A;
+      --sand: #D9C9B0;
+      --muted: #7A6E64;
+      --border: #D5CFC6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.5;
+    }
+
+    /* ─── HEADER / HERO ─── */
+    header {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: 'IG';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(14rem, 30vw, 28rem);
+      font-weight: 300;
+      color: var(--sand);
+      opacity: 0.45;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      color: var(--terracotta);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--terracotta); }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-desc {
+      max-width: 420px;
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .trait {
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.9rem;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .trait:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+      background: rgba(196, 98, 58, 0.05);
+    }
+
+    .hero-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 0.5rem;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .contact-line {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .contact-line a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .contact-line a:hover { color: var(--terracotta); }
+
+    .scroll-hint {
+      font-size: 11px;
+      color: var(--border);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .scroll-hint::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+      animation: pulse 2s ease infinite;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-num {
+      font-size: 11px;
+      color: var(--terracotta);
+      letter-spacing: 0.15em;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: 1rem;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 4rem;
+      max-width: 700px;
+    }
+
+    .edu-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    .edu-sub {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 0.15rem;
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .jobs { display: flex; flex-direction: column; gap: 0; }
+
+    .job {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .job:first-child { border-top: none; }
+
+    .job-meta {}
+
+    .job-company {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+
+    .job-role {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.4rem;
+    }
+
+    .job-dates {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .job-location {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .job-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .job-bullets li {
+      padding: 0.3rem 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .job-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--terracotta);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card:hover { border-color: var(--sand); background: rgba(217, 201, 176, 0.1); }
+
+    .skill-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-section {
+      padding: 6rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .contact-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-big em { font-style: italic; color: var(--terracotta); }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-item-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-item-val {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .contact-item-val:hover { color: var(--terracotta); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 1; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      header, .section { padding: 2rem 1.5rem; }
+      header::after { font-size: 10rem; right: -0.5rem; }
+      nav ul { gap: 1.2rem; }
+      .job { grid-template-columns: 1fr; gap: 1rem; }
+      .edu-block { grid-template-columns: 1fr; }
+      .contact-section { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HERO ─── -->
+  <header>
+    <nav>
+      <span class="logo">Isabel Gaytan</span>
+      <ul>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <p class="hero-eyebrow">Finance Student · University of Nebraska–Lincoln</p>
+      <h1>Isabel<br><em>Gaytan</em></h1>
+      <p class="hero-desc">
+        A business-minded finance student with a track record of driving performance metrics, building customer relationships, and keeping operations running with precision.
+      </p>
+      <div class="hero-traits">
+        <span class="trait">Harmony</span>
+        <span class="trait">Analytical</span>
+        <span class="trait">Adaptability</span>
+        <span class="trait">Ideation</span>
+        <span class="trait">Developer</span>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <div class="contact-line">
+        <a href="mailto:igaytan2@unl.edu">igaytan2@unl.edu</a>
+        <a href="tel:4026393332">(402) 639-3332</a>
+        <span style="color:var(--border)">Lincoln, NE</span>
+      </div>
+      <div class="scroll-hint">Scroll</div>
+    </div>
+  </header>
+
+  <!-- ─── EDUCATION ─── -->
+  <section class="section" id="education">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="edu-block reveal">
+      <div>
+        <div class="edu-label">Institution</div>
+        <div class="edu-value">University of Nebraska–Lincoln</div>
+        <div class="edu-sub">Lincoln, NE</div>
+      </div>
+      <div>
+        <div class="edu-label">Degree</div>
+        <div class="edu-value">B.S. in Business Administration</div>
+        <div class="edu-sub">Major: Finance</div>
+      </div>
+      <div>
+        <div class="edu-label">Expected Graduation</div>
+        <div class="edu-value">May 2028</div>
+        <div class="edu-sub">4-year program</div>
+      </div>
+      <div>
+        <div class="edu-label">Focus Areas</div>
+        <div class="edu-value" style="font-size:1rem; line-height:1.5;">Financial Analysis<br>KPI Tracking<br>Performance Metrics</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section class="section" id="experience">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="jobs">
+
+      <div class="job reveal">
+        <div class="job-meta">
+          <div class="job-company">Garage Clothing</div>
+          <div class="job-role">Sales Associate</div>
+          <div class="job-dates">July 2025 – Present</div>
+          <div class="job-location">Omaha, NE</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Process daily transactions with 99%+ accuracy, ensuring proper cash reconciliation</li>
+          <li>Make recommendations to meet or exceed weekly sales KPIs, contributing to team revenue targets</li>
+          <li>Increase average transaction value through upselling and product recommendations</li>
+          <li>Monitor individual sales performance metrics and adjust strategies to improve results</li>
+          <li>Support inventory tracking and stock accuracy to reduce shrinkage and maintain efficiency</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-meta">
+          <div class="job-company">Heavenly Nails</div>
+          <div class="job-role">Receptionist</div>
+          <div class="job-dates">January 2026 – February 2026</div>
+          <div class="job-location">Lincoln, NE</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Managed daily scheduling for 20+ client appointments, optimizing booking efficiency and minimizing downtime</li>
+          <li>Processed and recorded daily payments, maintaining accurate financial records and balanced cash flow</li>
+          <li>Handled customer transactions with high accuracy while maintaining organized documentation</li>
+          <li>Resolved client concerns, contributing to customer retention and service quality KPIs</li>
+        </ul>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-meta">
+          <div class="job-company">Scooter's Coffee</div>
+          <div class="job-role">Barista</div>
+          <div class="job-dates">September 2024 – December 2025</div>
+          <div class="job-location">Elkhorn, NE</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Processed daily transactions with 99%+ accuracy, ensuring proper cash reconciliation</li>
+          <li>Upsold to meet or exceed weekly sales KPIs, contributing to team revenue targets</li>
+          <li>Increased average transaction value through product recommendations</li>
+          <li>Monitored individual sales performance metrics and adjusted strategies to improve results</li>
+          <li>Supported inventory tracking and stock accuracy to reduce shrinkage and maintain efficiency</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section class="section" id="skills">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Microsoft Excel</div>
+        <div class="skill-desc">Data organization, financial tracking, formula-based analysis</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📈</div>
+        <div class="skill-name">KPI Tracking</div>
+        <div class="skill-desc">Performance metrics, goal-setting, sales analytics, and reporting</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💼</div>
+        <div class="skill-name">Microsoft PowerPoint</div>
+        <div class="skill-desc">Professional presentations, visual storytelling, slide design</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📝</div>
+        <div class="skill-name">Microsoft Word</div>
+        <div class="skill-desc">Document creation, formatting, professional writing</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💳</div>
+        <div class="skill-name">Cash Management</div>
+        <div class="skill-desc">Transaction accuracy, reconciliation, financial record-keeping</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Client Relations</div>
+        <div class="skill-desc">Conflict resolution, scheduling, customer retention strategies</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact-section" id="contact">
+    <div>
+      <p style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1rem;">04 — Let's Connect</p>
+      <div class="contact-big reveal">Let's<br>work<br><em>together.</em></div>
+    </div>
+    <div class="contact-links reveal">
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <a href="mailto:igaytan2@unl.edu" class="contact-item-val">igaytan2@unl.edu</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Phone</span>
+        <a href="tel:4026393332" class="contact-item-val">(402) 639-3332</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Location</span>
+        <span class="contact-item-val">Lincoln, NE 68508</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">University</span>
+        <span class="contact-item-val">University of Nebraska–Lincoln</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <span>© 2026 Isabel Gaytan</span>
+    <span>Finance Student · UNL · Class of 2028</span>
+  </footer>
+
+  <!-- ─── SCROLL REVEAL SCRIPT ─── -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
